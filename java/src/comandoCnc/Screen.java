@@ -115,10 +115,19 @@ public class Screen extends JFrame {
 		Screen.incrementandoZp = incrementandoZp;
 	}
 
+	public boolean isEscrita() {
+		return escrita;
+	}
+
+
+	public void setEscrita(boolean escrita) {
+		this.escrita = escrita;
+	}
 
 
 
-	 
+
+
 	// flag para sinalizar status da porta
 	 boolean conectado = false;
 	 
