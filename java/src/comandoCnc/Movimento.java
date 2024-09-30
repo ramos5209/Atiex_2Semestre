@@ -1,4 +1,4 @@
-package com.projeto;
+package comandoCnc;
 
 public class Movimento {
     private float move;
