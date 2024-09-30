@@ -56,73 +56,7 @@ public class Screen extends JFrame {
 	private static JLabel lblZ = new JLabel("0.000");
 	private boolean escrita = true;
 	
-	public static boolean isIncrementandoXp() {
-		return incrementandoXp;
-	}
-
-
-	public static void setIncrementandoXp(boolean incrementandoXp) {
-		Screen.incrementandoXp = incrementandoXp;
-	}
-
-
-	public static boolean isIncrementandoXn() {
-		return incrementandoXn;
-	}
-
-
-	public static void setIncrementandoXn(boolean incrementandoXn) {
-		Screen.incrementandoXn = incrementandoXn;
-	}
-
-
-	public static boolean isIncrementandoYn() {
-		return incrementandoYn;
-	}
-
-
-	public static void setIncrementandoYn(boolean incrementandoYn) {
-		Screen.incrementandoYn = incrementandoYn;
-	}
-
-
-	public static boolean isIncrementandoYp() {
-		return incrementandoYp;
-	}
-
-
-	public static void setIncrementandoYp(boolean incrementandoYp) {
-		Screen.incrementandoYp = incrementandoYp;
-	}
-
-
-	public static boolean isIncrementandoZn() {
-		return incrementandoZn;
-	}
-
-
-	public static void setIncrementandoZn(boolean incrementandoZn) {
-		Screen.incrementandoZn = incrementandoZn;
-	}
-
-
-	public static boolean isIncrementandoZp() {
-		return incrementandoZp;
-	}
-
-
-	public static void setIncrementandoZp(boolean incrementandoZp) {
-		Screen.incrementandoZp = incrementandoZp;
-	}
-
-	public boolean isEscrita() {
-		return escrita;
-	}
-
-
-	public void setEscrita(boolean escrita) {
-		this.escrita = escrita;
-	}
+	
 
 
 
