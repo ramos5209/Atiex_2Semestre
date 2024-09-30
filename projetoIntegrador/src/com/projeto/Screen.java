@@ -44,19 +44,78 @@ public class Screen extends JFrame {
 	private JButton btnApaga;
 	private JComboBox cmbBaudRate;
 	private JButton btnDesconectar;
-	static boolean incrementandoXp = false;
-	static boolean incrementandoXn = false;
-	static boolean incrementandoYn = false;
-	static boolean incrementandoYp = false;
-	static boolean incrementandoZn = false;
-	static boolean incrementandoZp = false;
-	static JLabel lblX = new JLabel("0.000");
-	static JLabel lblY = new JLabel("0.000");
-	static JLabel lblZ = new JLabel("0.000");
-	boolean escrita = true;
+	private static boolean incrementandoXp = false;
+	private static boolean incrementandoXn = false;
+	private static boolean incrementandoYn = false;
+	private static boolean incrementandoYp = false;
+	private static boolean incrementandoZn = false;
+	private static boolean incrementandoZp = false;
+	private static JLabel lblX = new JLabel("0.000");
+	private static JLabel lblY = new JLabel("0.000");
+	private static JLabel lblZ = new JLabel("0.000");
+	private boolean escrita = true;
+	
+	public static boolean isIncrementandoXp() {
+		return incrementandoXp;
+	}
 
 
-	 
+	public static void setIncrementandoXp(boolean incrementandoXp) {
+		Screen.incrementandoXp = incrementandoXp;
+	}
+
+
+	public static boolean isIncrementandoXn() {
+		return incrementandoXn;
+	}
+
+
+	public static void setIncrementandoXn(boolean incrementandoXn) {
+		Screen.incrementandoXn = incrementandoXn;
+	}
+
+
+	public static boolean isIncrementandoYn() {
+		return incrementandoYn;
+	}
+
+
+	public static void setIncrementandoYn(boolean incrementandoYn) {
+		Screen.incrementandoYn = incrementandoYn;
+	}
+
+
+	public static boolean isIncrementandoYp() {
+		return incrementandoYp;
+	}
+
+
+	public static void setIncrementandoYp(boolean incrementandoYp) {
+		Screen.incrementandoYp = incrementandoYp;
+	}
+
+
+	public static boolean isIncrementandoZn() {
+		return incrementandoZn;
+	}
+
+
+	public static void setIncrementandoZn(boolean incrementandoZn) {
+		Screen.incrementandoZn = incrementandoZn;
+	}
+
+
+	public static boolean isIncrementandoZp() {
+		return incrementandoZp;
+	}
+
+
+	public static void setIncrementandoZp(boolean incrementandoZp) {
+		Screen.incrementandoZp = incrementandoZp;
+	}
+
+
+
 	// flag para sinalizar status da porta
 	 boolean conectado = false;
 	 
