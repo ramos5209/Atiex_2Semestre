@@ -69,7 +69,7 @@ public class Screen extends JFrame {
 	String[] baudRate = { "110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "57600",
 			 "115200", "128000", "256000" };
 	
-	// cria objeto para comunica��o serial
+	static // cria objeto para comunica��o serial
 	Serial com = new Serial();
 
 
@@ -99,6 +99,7 @@ public class Screen extends JFrame {
 					Screen frame = new Screen();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -550,6 +551,14 @@ public class Screen extends JFrame {
 					public void run() {
 						if (conectado) {
 							com.enviaDados("?\r\n");
+							String verificaSinal = com.leDados();
+							textComandList.append(verificaSinal);
+							if(verificaSinal.equals("1")) {
+								int opcao = Integer.parseInt(verificaSinal);
+								textComandList.append(opcao+"");
+								moveMobile(opcao);
+							}
+							
 							
 						}
 					}
@@ -626,6 +635,79 @@ public class Screen extends JFrame {
 					setPanelEnabled((JPanel) component, isEnabled);
 				}
 				component.setEnabled(isEnabled);
+			}
+		}
+		public void moveMobile(int numero) {
+			switch(numero) {
+			case 0:
+				if(conectado) {
+					if(!escrita) {
+					escrita = true;
+					incrementandoXn = false;
+					incrementandoXp = false;
+					break;
+					}
+				}
+			
+//			Move eixo X no sentindo negativo
+			case 1:
+				if(conectado) {
+					if(escrita) {
+						escrita = false;
+						incrementandoXn = true;
+						break;
+					}
+				}
+				
+//			Move eixo X no sentido positivo
+			case 2:
+				if(conectado) {
+					if(escrita) {
+						escrita = false;
+						incrementandoXp = true;
+						break;
+					}
+				}
+			
+//			Move eixo Y no sentido negativo
+			case 3:
+				if(conectado) {
+					if(escrita) {
+						escrita = false;
+						incrementandoYn = true;
+						break;
+					}
+				}
+				
+//			Move eixo Y no sentido positivo
+			case 4:
+				if(conectado) {
+					if(escrita) {
+						escrita = false;
+						incrementandoYp = true;
+						break;
+					}
+				}
+				
+//			Move eixo Z no sentido Negativo
+			case 5:
+				if(conectado) {
+					if(escrita) {
+						escrita = false;
+						incrementandoZn = true;
+						break;
+					}
+				}
+				
+//			Move eixo Z no sentido positivo
+			case 6:
+				if(conectado) {
+					if(escrita) {
+						escrita = false;
+						incrementandoZp = true;
+						break;
+					}
+				}
 			}
 		}
 }

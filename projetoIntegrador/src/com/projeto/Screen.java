@@ -55,65 +55,6 @@ public class Screen extends JFrame {
 	private static JLabel lblZ = new JLabel("0.000");
 	private boolean escrita = true;
 	
-	public static boolean isIncrementandoXp() {
-		return incrementandoXp;
-	}
-
-
-	public static void setIncrementandoXp(boolean incrementandoXp) {
-		Screen.incrementandoXp = incrementandoXp;
-	}
-
-
-	public static boolean isIncrementandoXn() {
-		return incrementandoXn;
-	}
-
-
-	public static void setIncrementandoXn(boolean incrementandoXn) {
-		Screen.incrementandoXn = incrementandoXn;
-	}
-
-
-	public static boolean isIncrementandoYn() {
-		return incrementandoYn;
-	}
-
-
-	public static void setIncrementandoYn(boolean incrementandoYn) {
-		Screen.incrementandoYn = incrementandoYn;
-	}
-
-
-	public static boolean isIncrementandoYp() {
-		return incrementandoYp;
-	}
-
-
-	public static void setIncrementandoYp(boolean incrementandoYp) {
-		Screen.incrementandoYp = incrementandoYp;
-	}
-
-
-	public static boolean isIncrementandoZn() {
-		return incrementandoZn;
-	}
-
-
-	public static void setIncrementandoZn(boolean incrementandoZn) {
-		Screen.incrementandoZn = incrementandoZn;
-	}
-
-
-	public static boolean isIncrementandoZp() {
-		return incrementandoZp;
-	}
-
-
-	public static void setIncrementandoZp(boolean incrementandoZp) {
-		Screen.incrementandoZp = incrementandoZp;
-	}
-
 
 
 	// flag para sinalizar status da porta
@@ -345,12 +286,13 @@ public class Screen extends JFrame {
 		btnXNegativo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(conectado) {
-					if(escrita) {
-						escrita = false;
-						incrementandoXn = true;
-					}
-				}
+				com.enviaDados("1");
+//				if(conectado) {
+//					if(escrita) {
+//						escrita = false;
+//						incrementandoXn = true;
+//					}
+//				}
 				
 				
 			}
@@ -603,7 +545,7 @@ public class Screen extends JFrame {
 					@Override
 					public void run() {
 						if (conectado) {
-							com.enviaDados("?\r\n");
+							//com.enviaDados("?\r\n");
 							
 							
 													}
