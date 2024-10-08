@@ -435,7 +435,8 @@ public class Screen extends JFrame {
 					erro.setModalityType(ModalityType.APPLICATION_MODAL);
 					erro.setVisible(true);
 					erro.setLocationRelativeTo(null);
-				
+					
+					
 					
 				}
 			}
