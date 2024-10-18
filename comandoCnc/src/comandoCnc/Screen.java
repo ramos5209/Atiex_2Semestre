@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultComboBoxModel;
 
 
 
@@ -71,6 +72,7 @@ public class Screen extends JFrame {
 	
 	static // cria objeto para comunica��o serial
 	Serial com = new Serial();
+	Serial com2 = new Serial();
 
 
 	
@@ -115,7 +117,7 @@ public class Screen extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				if(conectado) {
 					com.fechaCom();
-				}
+					com2.fechaCom();				}
 				
 			}
 		});
@@ -161,46 +163,77 @@ public class Screen extends JFrame {
 		
 		btnApaga.setBounds(714, 452, 89, 23);
 		contentPane.add(btnApaga);
-		
 		JTextArea textComandList = new JTextArea();
 		JScrollPane textComandListS = new JScrollPane ( textComandList );
 		contentPane.add(textComandListS);
-		textComandListS.setBounds(249, 112, 564, 329);
+		textComandListS.setBounds(247, 121, 564, 329);
 		
 		JPanel pnlComunicacao = new JPanel();
-		pnlComunicacao.setBounds(21, 11, 782, 90);
+		pnlComunicacao.setBounds(21, 11, 782, 101);
 		pnlComunicacao.setBackground(new Color(192, 192, 192));
 		pnlComunicacao.setBorder(UIManager.getBorder("InternalFrame.border"));
 		contentPane.add(pnlComunicacao);
 		pnlComunicacao.setLayout(null);
 		
 		JComboBox cmbPortas = new JComboBox(com.listaCom());
-		cmbPortas.setBounds(10, 44, 206, 22);
+		cmbPortas.setBounds(10, 35, 206, 22);
 		pnlComunicacao.add(cmbPortas);
 		
 		cmbBaudRate = new JComboBox(baudRate);
+		cmbBaudRate.setModel(new DefaultComboBoxModel(new String[] {"110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000"}));
 		cmbBaudRate.setSelectedIndex(11);
-		cmbBaudRate.setBounds(246, 44, 232, 22);
+		cmbBaudRate.setBounds(10, 68, 232, 22);
 		pnlComunicacao.add(cmbBaudRate);
 		
 		JButton btnConectar = new JButton("CONECTAR");
 		btnConectar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		btnConectar.setBackground(new Color(128, 128, 128));
-		btnConectar.setBounds(530, 44, 106, 23);
+		btnConectar.setBounds(254, 35, 106, 23);
 		pnlComunicacao.add(btnConectar);
 		
 		btnDesconectar = new JButton("DESCONECTAR");
 		btnDesconectar.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnDesconectar.setEnabled(false);
 		btnDesconectar.setBackground(new Color(128, 128, 128));
-		btnDesconectar.setBounds(646, 44, 126, 23);
+		btnDesconectar.setBounds(252, 68, 126, 23);
 		pnlComunicacao.add(btnDesconectar);
+		
+		JComboBox cmbPortasCom2 = new JComboBox();
+		cmbPortasCom2.setBounds(389, 35, 206, 22);
+		pnlComunicacao.add(cmbPortasCom2);
+		
+		JComboBox cmbBaudRateCom2 = new JComboBox();
+		cmbBaudRateCom2.setModel(new DefaultComboBoxModel(new String[] {"110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000"}));
+		cmbBaudRateCom2.setBounds(388, 68, 232, 22);
+		pnlComunicacao.add(cmbBaudRateCom2);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButton_1.setBounds(630, 68, 126, 23);
+		pnlComunicacao.add(btnNewButton_1);
+		
+		JButton btnConectar2 = new JButton("Conectar");
+		btnConectar2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnConectar2.setBounds(630, 35, 106, 23);
+		pnlComunicacao.add(btnConectar2);
+		
+		JLabel lblNewLabel = new JLabel("Conexão maquina");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(178, 11, 126, 24);
+		pnlComunicacao.add(lblNewLabel);
+		
+		JLabel lblConexoExterna = new JLabel("Conexão externa");
+		lblConexoExterna.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConexoExterna.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblConexoExterna.setBounds(555, 11, 126, 24);
+		pnlComunicacao.add(lblConexoExterna);
 		
 		JPanel pnlButtons = new JPanel();
 		pnlButtons.setBorder(UIManager.getBorder("Menu.border"));
 		pnlButtons.setBackground(new Color(192, 192, 192));
-		pnlButtons.setBounds(21, 112, 224, 422);
+		pnlButtons.setBounds(21, 119, 224, 413);
 		contentPane.add(pnlButtons);
 		pnlButtons.setLayout(null);
 		
@@ -501,6 +534,8 @@ public class Screen extends JFrame {
 		pnlButtons.add(btnNewButton);
 		btnNewButton.setEnabled(false);
 		
+
+		
 		btnHomePosition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				com.enviaDados("G10 P0 L20 X0 Y0 Z0 \r\n");
@@ -543,8 +578,8 @@ public class Screen extends JFrame {
 		
 		
 		
-		// Cria um servi�o agendado com uma �nica Thread
-				ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+		// Cria um servi�o agendado com tres Thread
+				ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
 				// Tarefa a ser executada periodicamente
 				Runnable task = new Runnable() {
@@ -552,13 +587,7 @@ public class Screen extends JFrame {
 					public void run() {
 						if (conectado) {
 							com.enviaDados("?\r\n");
-							String verificaSinal = com.leDados();
-							textComandList.append(verificaSinal);
-							if(verificaSinal.equals("1")) {
-								int opcao = Integer.parseInt(verificaSinal);
-								textComandList.append(opcao+"");
-								moveMobile(opcao);
-							}
+							
 							
 							
 						}
@@ -600,10 +629,26 @@ public class Screen extends JFrame {
 				        }
 				        
 				    }};
+				    
+				    
+				    Runnable tarefa3 = new Runnable() {
+				    	@Override
+				    	public void run() {
+				    		String verificaSinal = com2.leDados();
+				    		
+							if(verificaSinal.equals("1")) {
+								int opcao = Integer.parseInt(verificaSinal);
+								textComandList.append(opcao+"");
+								moveMobile(opcao);
+							}
+				    	}
+				    	
+				    };
 
 				// Agenda a tarefa para ser executada a cada 100 milissegundos
 				scheduler.scheduleAtFixedRate(task, 0,100, TimeUnit.MILLISECONDS);
 				scheduler.scheduleAtFixedRate(tarefa2, 0,400, TimeUnit.MILLISECONDS);
+				scheduler.scheduleAtFixedRate(tarefa2, 0,200, TimeUnit.MILLISECONDS);
 
 				
 
