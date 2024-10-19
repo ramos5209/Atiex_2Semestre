@@ -27,6 +27,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 
 
 
@@ -65,10 +67,13 @@ public class Screen extends JFrame {
 
 	// flag para sinalizar status da porta
 	 boolean conectado = false;
+	 boolean conectado2= false;
 	 
 	// String para preenchimento do Baud Rate
 	String[] baudRate = { "110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "57600",
 			 "115200", "128000", "256000" };
+	
+	
 	
 	static // cria objeto para comunica��o serial
 	Serial com = new Serial();
@@ -115,7 +120,7 @@ public class Screen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				if(conectado) {
+				if(conectado || conectado2) {
 					com.fechaCom();
 					com2.fechaCom();				}
 				
@@ -179,13 +184,23 @@ public class Screen extends JFrame {
 		cmbPortas.setBounds(10, 35, 206, 22);
 		pnlComunicacao.add(cmbPortas);
 		
+		JComboBox cmbPortasCom2 = new JComboBox(com2.listaCom());
+		cmbPortasCom2.setBounds(389, 35, 206, 22);
+		pnlComunicacao.add(cmbPortasCom2);
+		
 		cmbBaudRate = new JComboBox(baudRate);
-		cmbBaudRate.setModel(new DefaultComboBoxModel(new String[] {"110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000"}));
 		cmbBaudRate.setSelectedIndex(11);
 		cmbBaudRate.setBounds(10, 68, 232, 22);
 		pnlComunicacao.add(cmbBaudRate);
 		
+		JComboBox cmbBaudRateCom2 = new JComboBox(baudRate);
+		cmbBaudRateCom2.setSelectedIndex(10);
+		cmbBaudRateCom2.setBounds(388, 68, 232, 22);
+		pnlComunicacao.add(cmbBaudRateCom2);
+		
 		JButton btnConectar = new JButton("CONECTAR");
+		btnConectar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnConectar.setBorder(UIManager.getBorder("ToolBar.border"));
 		btnConectar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		btnConectar.setBackground(new Color(128, 128, 128));
@@ -193,30 +208,34 @@ public class Screen extends JFrame {
 		pnlComunicacao.add(btnConectar);
 		
 		btnDesconectar = new JButton("DESCONECTAR");
+		btnDesconectar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDesconectar.setBorder(UIManager.getBorder("ToolBar.border"));
 		btnDesconectar.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnDesconectar.setEnabled(false);
 		btnDesconectar.setBackground(new Color(128, 128, 128));
 		btnDesconectar.setBounds(252, 68, 126, 23);
 		pnlComunicacao.add(btnDesconectar);
 		
-		JComboBox cmbPortasCom2 = new JComboBox();
-		cmbPortasCom2.setBounds(389, 35, 206, 22);
-		pnlComunicacao.add(cmbPortasCom2);
+
 		
-		JComboBox cmbBaudRateCom2 = new JComboBox();
-		cmbBaudRateCom2.setModel(new DefaultComboBoxModel(new String[] {"110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000"}));
-		cmbBaudRateCom2.setBounds(388, 68, 232, 22);
-		pnlComunicacao.add(cmbBaudRateCom2);
+
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton_1.setBounds(630, 68, 126, 23);
-		pnlComunicacao.add(btnNewButton_1);
+		JButton btnDesconectar2 = new JButton("Desconectar");
+		
+		btnDesconectar2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDesconectar2.setBorder(UIManager.getBorder("ToolBar.border"));
+		btnDesconectar2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDesconectar2.setBounds(630, 68, 126, 23);
+		pnlComunicacao.add(btnDesconectar2);
 		
 		JButton btnConectar2 = new JButton("Conectar");
+		btnConectar2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnConectar2.setBorder(UIManager.getBorder("ToolBar.border"));
 		btnConectar2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConectar2.setBounds(630, 35, 106, 23);
 		pnlComunicacao.add(btnConectar2);
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		JLabel lblNewLabel = new JLabel("Conexão maquina");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -563,6 +582,22 @@ public class Screen extends JFrame {
 			
 			}
 		});
+		
+		btnConectar2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean resultado = com2.abreCom(cmbPortasCom2.getSelectedItem().toString(),
+						Integer.parseInt(cmbBaudRateCom2.getSelectedItem().toString()));
+				if(resultado) {
+					conectado2 = true;
+					cmbPortasCom2.setEnabled(false);
+					cmbBaudRateCom2.setEnabled(false);
+					btnConectar2.setEnabled(false);
+					btnDesconectar2.setEnabled(true);
+					
+				}
+				
+			}
+		});
 		btnDesconectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				conectado = false;
@@ -576,6 +611,19 @@ public class Screen extends JFrame {
 		});
 		
 		
+		btnDesconectar2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				conectado2 = false;
+				com2.fechaCom();
+				cmbPortasCom2.setEnabled(true);
+				cmbBaudRateCom2.setEnabled(true);
+				btnConectar2.setEnabled(true);
+				btnDesconectar2.setEnabled(false);
+			}
+		});
+		
+		
+		
 		
 		
 		// Cria um servi�o agendado com tres Thread
@@ -585,11 +633,19 @@ public class Screen extends JFrame {
 				Runnable task = new Runnable() {
 					@Override
 					public void run() {
+
 						if (conectado) {
 							com.enviaDados("?\r\n");
-							
-							
-							
+						}
+						if(conectado2) {
+				    		textComandList.append("teste");
+							String verificaSinal = com2.leDados();
+				    		textComandList.append(verificaSinal);
+							if(verMov(verificaSinal)) {
+								int opcao = Integer.parseInt(verificaSinal);
+								textComandList.append(verificaSinal);
+								moveMobile(opcao);	
+							}
 						}
 					}
 				};
@@ -634,13 +690,7 @@ public class Screen extends JFrame {
 				    Runnable tarefa3 = new Runnable() {
 				    	@Override
 				    	public void run() {
-				    		String verificaSinal = com2.leDados();
 				    		
-							if(verificaSinal.equals("1")) {
-								int opcao = Integer.parseInt(verificaSinal);
-								textComandList.append(opcao+"");
-								moveMobile(opcao);
-							}
 				    	}
 				    	
 				    };
@@ -648,7 +698,7 @@ public class Screen extends JFrame {
 				// Agenda a tarefa para ser executada a cada 100 milissegundos
 				scheduler.scheduleAtFixedRate(task, 0,100, TimeUnit.MILLISECONDS);
 				scheduler.scheduleAtFixedRate(tarefa2, 0,400, TimeUnit.MILLISECONDS);
-				scheduler.scheduleAtFixedRate(tarefa2, 0,200, TimeUnit.MILLISECONDS);
+				scheduler.scheduleAtFixedRate(tarefa3, 0,200, TimeUnit.MILLISECONDS);
 
 				
 
@@ -683,6 +733,15 @@ public class Screen extends JFrame {
 				component.setEnabled(isEnabled);
 			}
 		}
+		public boolean verMov(String mov) {
+			String[] movimentosExt = {"0","1","2","3","4","5","6"};
+			for(String s : movimentosExt) {
+				if(mov.equals(s))
+					return true;
+			}
+			return false;
+		}
+		
 		public void moveMobile(int numero) {
 			switch(numero) {
 			case 0:

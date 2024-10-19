@@ -50,7 +50,9 @@ public class Serial {
 
 	// fecha a porta COM
 	public void fechaCom() {
-		serialPort.closePort();
+		if(serialPort != null)
+			serialPort.closePort();
+		else System.out.println("porta serial ja esta fechada");
 	}
 
 	// envia dados
