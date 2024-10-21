@@ -55,6 +55,7 @@ public class Screen extends JFrame {
 	private static JLabel lblY = new JLabel("0.000");
 	private static JLabel lblZ = new JLabel("0.000");
 	private boolean escrita = true;
+	private boolean movMobileOn = false; 
 
 	// flag para sinalizar status da porta
 	boolean conectado = false;
@@ -198,6 +199,7 @@ public class Screen extends JFrame {
 		pnlComunicacao.add(btnDesconectar);
 
 		JButton btnDesconectar2 = new JButton("Desconectar");
+		btnDesconectar2.setEnabled(false);
 
 		btnDesconectar2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnDesconectar2.setBorder(UIManager.getBorder("ToolBar.border"));
@@ -561,8 +563,8 @@ public class Screen extends JFrame {
 					cmbBaudRateCom2.setEnabled(false);
 					btnConectar2.setEnabled(false);
 					btnDesconectar2.setEnabled(true);
-
-				}
+					com2.enviaDados("Serial iniciada");
+					}
 
 			}
 		});
@@ -596,19 +598,24 @@ public class Screen extends JFrame {
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-
+				
 				if (conectado) {
 					com.enviaDados("?\r\n");
+					
+					
 				}
 				if (conectado2) {
-					textComandList.append("teste");
+					
 					String verificaSinal = com2.leDados();
-				
-//					if (verMov(verificaSinal)) {
-//						int opcao = Integer.parseInt(verificaSinal);
-//						textComandList.append(verificaSinal);
-//						moveMobile(opcao);
-//					}
+					textComandList.append(verificaSinal);
+					if (verMov(verificaSinal)) {
+						int opcao = Integer.parseInt(verificaSinal);
+						textComandList.append(verificaSinal+" \r\n");
+						moveMobile(opcao);
+					}
+					else if(movMobileOn && verificaSinal.equals(".")) {
+						moveMobile(0);
+					}
 				}
 			}
 		};
@@ -705,6 +712,11 @@ public class Screen extends JFrame {
 					escrita = true;
 					incrementandoXn = false;
 					incrementandoXp = false;
+					incrementandoYn = false;
+					incrementandoYp = false;
+					incrementandoZn = false;
+					incrementandoZp = false;
+					movMobileOn = false;
 					break;
 				}
 			}
@@ -715,6 +727,7 @@ public class Screen extends JFrame {
 				if (escrita) {
 					escrita = false;
 					incrementandoXn = true;
+					movMobileOn = true;
 					break;
 				}
 			}
@@ -725,6 +738,7 @@ public class Screen extends JFrame {
 				if (escrita) {
 					escrita = false;
 					incrementandoXp = true;
+					movMobileOn = true;
 					break;
 				}
 			}
@@ -735,6 +749,7 @@ public class Screen extends JFrame {
 				if (escrita) {
 					escrita = false;
 					incrementandoYn = true;
+					movMobileOn = true;
 					break;
 				}
 			}
@@ -745,6 +760,7 @@ public class Screen extends JFrame {
 				if (escrita) {
 					escrita = false;
 					incrementandoYp = true;
+					movMobileOn = true;
 					break;
 				}
 			}
@@ -755,6 +771,7 @@ public class Screen extends JFrame {
 				if (escrita) {
 					escrita = false;
 					incrementandoZn = true;
+					movMobileOn = true;
 					break;
 				}
 			}
@@ -765,6 +782,7 @@ public class Screen extends JFrame {
 				if (escrita) {
 					escrita = false;
 					incrementandoZp = true;
+					movMobileOn = true;
 					break;
 				}
 			}
